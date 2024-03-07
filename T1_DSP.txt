@@ -1,0 +1,78 @@
+1.
+A = [11 12 13 14; 21 22 23 24; 31 32 33 34] 
+A(2,3)
+A(1,:)
+A(:,3)
+ones(6,2)
+zeros(3,2)
+rand(7,3)
+eye(8)
+F = A.*B
+G = inv(A)
+H = A./ B
+z = linspace(0, pi/2, 10) 
+niz = rand(1,6)
+niz([1,2,3]) = []
+x = [1,2] ~= [2,2]
+2.
+function [] = Z5()
+    t = linspace(0, 2, 200);
+    y1 = 2*sin(6*pi*t + pi/4);
+    y2 = 3*sin(12*pi/3*t);
+    y3 = 3*sin(3*pi*t + pi);
+    y4 = 2*sin(2*pi*t + pi/2);
+    figure;
+
+    subplot(2, 2, 1);
+    plot(t, y1, 'r--'); // plot(t, y2, '-.g'); // plot(t, y1, 'r--');
+    xlabel('t(s)');
+    ylabel('y(t)');
+    title('2*sin(6*\pi*t + \pi/4)');
+    ylim([-4, 4]);
+    grid on;
+end
+3.
+    y1 = heaviside(t);
+    y2 = heaviside(t - 3);
+    y = y1 - y2;
+    y_neg = fliplr(y);
+    ev = 1/2*(y + y_neg);
+    odd = 1/2*(y - y_neg);
+4.
+function [] = Z5_d()
+    
+    t1 = -2:0.01:-1;
+    t2 = -1:0.01:0;
+    t3 = 0:0.01:1;
+    t4 = 1:0.01:2;
+    t5 = 2:0.01:3;
+    
+  
+    f1 = @(x) x + 2; 
+    f2 = @(x) -x; 
+    f3 = @(x) x; 
+    f4 = @(x) 1; 
+    f5 = @(x) 3-x;
+    
+    combined_func = @(x) ...
+        (x >= t1(1) & x <= t1(end)) .* f1(x) + ...
+        (x > t2(1) & x <= t2(end)) .* f2(x) + ...
+        (x > t3(1) & x <= t3(end)) .* f3(x) + ...
+        (x > t4(1) & x <= t4(end)) .* f4(x) + ...
+        (x > t5(1) & x <= t5(end)) .* f5(x);
+    t = -5:0.01:10;
+    y = combined_func(t);
+    subplot(2,1,1);
+    plot(t, y);
+    xlabel('t(s)');
+    title('x(t)');
+    grid on;    
+    t_novo = -2 .* t + 3;
+    y2 = combined_func(t_novo);
+    subplot(2,1,2);
+    plot(t,y2);
+    xlabel('t(s)');
+    title('x(3-2t)');
+    xlim([-5,10]);
+    grid on;
+end
